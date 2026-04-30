@@ -86,6 +86,57 @@ def main(page: ft.Page):
             ft.TextButton("Регистрация", on_click=register_user)
         ], alignment="center")
     )
+    
+# 1. Поле для поиска друга и кнопка
+# 1. Создаем дисплей для сообщений
+    chat_display = ft.Column(expand=True, scroll=ft.ScrollMode.ALWAYS)
 
+    # 2. Создаем поле ввода (назови его new_msg_field, как в коде смайликов)
+    new_msg_field = ft.TextField(hint_text="Пиши сюда...", expand=True)
+
+    # 3. Создаем строку отправки (поле + кнопка)
+    message_row = ft.Row([
+        new_msg_field,
+        ft.IconButton(icon=ft.icons.SEND, on_click=lambda _: print("Жми!"))
+    ])
+# --- СНАЧАЛА СОЗДАЕМ ВСЕ ЭЛЕМЕНТЫ ---
+    chat_display = ft.Column(expand=True, scroll=ft.ScrollMode.ALWAYS)
+    new_msg_field = ft.TextField(hint_text="Пиши сюда...", expand=True)
+    friend_input = ft.TextField(label="Ник друга (например: Sanya)", width=250)
+
+    # Функция добавления смайлика
+    def add_emoji(e):
+        new_msg_field.value += e.control.content.value
+        page.update()
+
+    # Ряд смайликов (тот самый выбор агурца)
+    emoji_row = ft.Row([
+        ft.IconButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
+        ft.IconButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
+        ft.IconButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
+        ft.IconButton(content=ft.Text("✅", size=25), on_click=add_emoji),
+    ], alignment="center")
+
+    # Строка отправки
+    message_row = ft.Row([
+        new_msg_field, 
+        ft.IconButton(icon=ft.icons.SEND, on_click=lambda _: print("Отправлено!"))
+    ])
+
+    # --- ТЕПЕРЬ ФУНКЦИЯ ПЕРЕХОДА В ЧАТ ---
+    def start_private_chat(e):
+        if friend_input.value:
+            page.clean()
+            page.add(
+                ft.Text(f"Чат с пользователем: {friend_input.value}", size=20, weight="bold"),
+                chat_display,
+                message_row,
+                emoji_row
+            )
+            page.update()
+
+    # Кнопка запуска поиска
+    start_chat_btn = ft.ElevatedButton("Найти друга и Бум-Бум! 🚀", on_click=start_private_chat)
+    
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
