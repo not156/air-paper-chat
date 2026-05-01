@@ -108,7 +108,7 @@ def main(page: ft.Page):
     # Строка отправки
     message_row = ft.Row([
         new_msg_field, 
-        ft.IconButton(icon="send", on_click=send_message)
+        ft.IconButton(icon="send", on_click=lambda _: print("Отправлено!"))
     ])
     def start_private_chat(e):
         if friend_input.value:
