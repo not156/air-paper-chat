@@ -86,20 +86,8 @@ def main(page: ft.Page):
             ft.TextButton("Регистрация", on_click=register_user)
         ], alignment="center")
     )
-    
-# 1. Поле для поиска друга и кнопка
-# 1. Создаем дисплей для сообщений
-    chat_display = ft.Column(expand=True, scroll=ft.ScrollMode.ALWAYS)
 
-    # 2. Создаем поле ввода (назови его new_msg_field, как в коде смайликов)
-    new_msg_field = ft.TextField(hint_text="Пиши сюда...", expand=True)
 
-    # 3. Создаем строку отправки (поле + кнопка)
-    message_row = ft.Row([
-        new_msg_field,
-        ft.IconButton(icon=ft.icons.SEND, on_click=lambda _: print("Жми!"))
-    ])
-# --- СНАЧАЛА СОЗДАЕМ ВСЕ ЭЛЕМЕНТЫ ---
     chat_display = ft.Column(expand=True, scroll=ft.ScrollMode.ALWAYS)
     new_msg_field = ft.TextField(hint_text="Пиши сюда...", expand=True)
     friend_input = ft.TextField(label="Ник друга (например: Sanya)", width=250)
@@ -111,32 +99,52 @@ def main(page: ft.Page):
 
     # Ряд смайликов (тот самый выбор агурца)
     emoji_row = ft.Row([
-        ft.IconButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
-        ft.IconButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
-        ft.IconButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
-        ft.IconButton(content=ft.Text("✅", size=25), on_click=add_emoji),
+        ft.TextButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
+        ft.TextButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
+        ft.TextButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
+        ft.TextButton(content=ft.Text("✅", size=25), on_click=add_emoji),
     ], alignment="center")
 
     # Строка отправки
     message_row = ft.Row([
         new_msg_field, 
-        ft.IconButton(icon=ft.icons.SEND, on_click=lambda _: print("Отправлено!"))
+        ft.IconButton(icon="send", on_click=send_message)
     ])
-
-    # --- ТЕПЕРЬ ФУНКЦИЯ ПЕРЕХОДА В ЧАТ ---
     def start_private_chat(e):
         if friend_input.value:
+            # Имя файла для сохранения (например: chat_Sanya.txt)
+            chat_file = f"chat_with_{friend_input.value}.txt"
+            
             page.clean()
             page.add(
-                ft.Text(f"Чат с пользователем: {friend_input.value}", size=20, weight="bold"),
+                ft.Text(f"🔒 Личный чат с: {friend_input.value}", size=22, weight="bold", color="green"),
                 chat_display,
                 message_row,
                 emoji_row
             )
+
+            # Пробуем загрузить старые сообщения, если они есть
+            if os.path.exists(chat_file):
+                with open(chat_file, "r", encoding="utf-8") as f:
+                    for line in f:
+                        chat_display.controls.append(ft.Text(line.strip()))
+            
             page.update()
 
-    # Кнопка запуска поиска
-    start_chat_btn = ft.ElevatedButton("Найти друга и Бум-Бум! 🚀", on_click=start_private_chat)
-    
+    # А эту функцию привяжем к кнопке отправки
+    def send_message(e):
+        if new_msg_field.value:
+            chat_file = f"chat_with_{friend_input.value}.txt"
+            msg = f"Админ Семён: {new_msg_field.value}"
+            
+            # 1. Пишем в файл (сохраняем навсегда!)
+            with open(chat_file, "a", encoding="utf-8") as f:
+                f.write(msg + "\n")
+            
+            # 2. Показываем на экране
+            chat_display.controls.append(ft.Text(msg))
+            new_msg_field.value = ""
+            page.update()
+
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
