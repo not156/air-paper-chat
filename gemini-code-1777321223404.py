@@ -110,41 +110,46 @@ def main(page: ft.Page):
         new_msg_field, 
         ft.IconButton(icon="send", on_click=lambda _: print("Отправлено!"))
     ])
+# --- 1. ФУНКЦИЯ ОТПРАВКИ (чтобы писать в файл) ---
+    def send_message(e):
+        if new_msg_field.value:
+            # Имя файла на основе ника друга
+            chat_file = f"chat_{friend_input.value}.txt"
+            msg = f"Семён: {new_msg_field.value}"
+            
+            # Пишем в файл
+            with open(chat_file, "a", encoding="utf-8") as f:
+                f.write(msg + "\n")
+            
+            # Добавляем на экран и очищаем поле
+            chat_display.controls.append(ft.Text(msg, color="white"))
+            new_msg_field.value = ""
+            page.update()
+
+    # --- 2. ФУНКЦИЯ ВХОДА В ЛИЧКУ ---
     def start_private_chat(e):
         if friend_input.value:
-            # Имя файла для сохранения (например: chat_Sanya.txt)
-            chat_file = f"chat_with_{friend_input.value}.txt"
+            chat_file = f"chat_{friend_input.value}.txt"
+            page.clean() # Очищаем экран входа
             
-            page.clean()
+            # Собираем экран лички
             page.add(
-                ft.Text(f"🔒 Личный чат с: {friend_input.value}", size=22, weight="bold", color="green"),
+                ft.Text(f"🔒 Чат с {friend_input.value}", size=25, color="green", weight="bold"),
                 chat_display,
-                message_row,
+                ft.Row([new_msg_field, ft.IconButton(icon="send", on_click=send_message)]),
                 emoji_row
             )
-
-            # Пробуем загрузить старые сообщения, если они есть
+            
+            # Если файл уже был, загружаем историю
             if os.path.exists(chat_file):
                 with open(chat_file, "r", encoding="utf-8") as f:
                     for line in f:
                         chat_display.controls.append(ft.Text(line.strip()))
-            
             page.update()
 
-    # А эту функцию привяжем к кнопке отправки
-    def send_message(e):
-        if new_msg_field.value:
-            chat_file = f"chat_with_{friend_input.value}.txt"
-            msg = f"Админ Семён: {new_msg_field.value}"
-            
-            # 1. Пишем в файл (сохраняем навсегда!)
-            with open(chat_file, "a", encoding="utf-8") as f:
-                f.write(msg + "\n")
-            
-            # 2. Показываем на экране
-            chat_display.controls.append(ft.Text(msg))
-            new_msg_field.value = ""
-            page.update()
+    # --- 3. КНОПКА ЗАПУСКА (на главном экране) ---
+    start_btn = ft.ElevatedButton("Войти в личку 🚀", on_click=start_private_chat)
+    page.add(friend_input, start_btn) # Это то, что мы видим в начале
 
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
