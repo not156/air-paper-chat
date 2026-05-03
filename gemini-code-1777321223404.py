@@ -132,14 +132,16 @@ def main(page: ft.Page):
             chat_file = f"chat_{friend_input.value}.txt"
             page.clean() # Очищаем экран входа
             
-            # Собираем экран лички
+ #Собираем экран лички
             page.add(
                 ft.Text(f"🔒 Чат с {friend_input.value}", size=25, color="green", weight="bold"),
                 chat_display,
-                ft.Row([new_msg_field, ft.IconButton(icon="send", on_click=send_message)]),
+                ft.Row([
+                    new_msg_field, 
+                    ft.ElevatedButton("ОТПРАВИТЬ 🚀", on_click=send_message)
+                ]),
                 emoji_row
             )
-            
             # Если файл уже был, загружаем историю
             if os.path.exists(chat_file):
                 with open(chat_file, "r", encoding="utf-8") as f:
@@ -150,6 +152,29 @@ def main(page: ft.Page):
     # --- 3. КНОПКА ЗАПУСКА (на главном экране) ---
     start_btn = ft.ElevatedButton("Войти в личку 🚀", on_click=start_private_chat)
     page.add(friend_input, start_btn) # Это то, что мы видим в начале
+        
+    def start_drawing(e):
+        page.clean()
+        page.add(ft.Text("🎨 ТУТ БУДЕТ ХОЛСТ (Скоро...)", size=30, color="blue"))
+        # Сюда мы потом вставим код для рисования пальцем/мышкой
+        page.update()
+
+    def close_dialog(e):
+        page.dialog.open = False
+        page.update()
+
+    # Функция для вызова окна (тот самый ДЗИНЬ)
+    def show_invite():
+        page.dialog = ft.AlertDialog(
+            title=ft.Text("🎨 Вызов от 111!"),
+            content=ft.Text("Саня пишет: мяу. Погнали рисовать?"),
+            actions=[
+                ft.TextButton("✅ Принять", on_click=start_drawing),
+                ft.TextButton("❌ Отклонить", on_click=close_dialog),
+            ],
+        )
+        page.dialog.open = True
+        page.update()
 
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
