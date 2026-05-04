@@ -98,19 +98,25 @@ def main(page: ft.Page):
         page.update()
 
     # Ряд смайликов (тот самый выбор агурца)
-    # Обновляем ряд смайликов в main.py
+# Ряд смайликов (добавляем кнопку связи рядом!)
  emoji_row = ft.Row([
     ft.TextButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
     ft.TextButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
     ft.TextButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
     ft.TextButton(content=ft.Text("✅", size=25), on_click=add_emoji),
-    # ВОТ ОНА — ГЛАВНАЯ КНОПКА ЗВОНКА 🍅
-    ft.IconButton(
-        icon=ft.icons.PHONE_FORWARDED, 
-        icon_color="red", 
-        icon_size=30,
-        on_click=lambda _: incoming_call_popup() # Запуск нашего окна и буууп-звука
-    ),
+    
+    # ТА САМАЯ КНОПКА СВЯЗИ 🍅
+    ft.Container(
+        content=ft.IconButton(
+            icon=ft.icons.CALL,
+            icon_color="red",
+            icon_size=30,
+            on_click=lambda _: incoming_call_popup() # Наш бууупбуууп и окно
+        ),
+        bgcolor="white",
+        border_radius=10,
+        padding=2
+    )
 ], alignment="center")
 
     # Строка отправки
