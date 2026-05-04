@@ -104,7 +104,13 @@ def main(page: ft.Page):
     ft.TextButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
     ft.TextButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
     ft.TextButton(content=ft.Text("✅", size=25), on_click=add_emoji),
-    
+    # Тот самый "Помидорный" вызов рядом с ✅
+        ft.IconButton(
+            icon=ft.icons.TELEGRAM_ROUNDED, # Похоже на запуск ракеты/звонка
+            icon_color="orange",            # Сделаем ярким, чтобы не путать
+            icon_size=30,
+            on_click=lambda _: incoming_call_popup() # Наш бууупбуууп и окно "111"
+        ),
     # ТА САМАЯ КНОПКА СВЯЗИ 🍅
     ft.Container(
         content=ft.IconButton(
