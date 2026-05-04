@@ -28,3 +28,19 @@ function acceptIncomingCall() {
         alert("ОШИБКА: Обнаружена активность RAT! Соединение разорвано. 🛡️");
     }
 }
+// Функция для того самого *буууупбуууп*
+function playIncomingBeep() {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioCtx.createOscillator();
+    
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); // Тот самый буууп
+    
+    oscillator.connect(audioCtx.destination);
+    oscillator.start();
+    
+    // Звучит коротко, чтобы не надоедать
+    setTimeout(() => {
+        oscillator.stop();
+    }, 500);
+}
