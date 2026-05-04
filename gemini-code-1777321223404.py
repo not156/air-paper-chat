@@ -114,25 +114,24 @@ def start_search(e):
         page.update()
 
     # Ряд смайликов (тот самый выбор агурца)
-emoji_row = ft.Row([
+    emoji_row = ft.Row([
         ft.TextButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
         ft.TextButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
         ft.TextButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
         ft.TextButton(content=ft.Text("✅", size=25), on_click=add_emoji),
-        
-# ТА САМАЯ КНОПКА СВЯЗИ 🍅 (с затемнением)
-    ft.Container(
-        content=ft.IconButton(
-            icon=ft.icons.CALL,
-            icon_color="red",
-            icon_size=30,
-        ),
-        bgcolor="white",    # Исправили bacolor на bgcolor ✅
-        border_radius=10,
-        padding=2,
-        on_click=start_search, 
-    )
-
+        ft.Container(
+            content=ft.IconButton(
+                icon=ft.icons.CALL,
+                icon_color="red",
+                icon_size=30,
+            ),
+            bgcolor="white", 
+            border_radius=10,
+            padding=2,
+            on_click=start_search,
+        ), # Закрыли контейнер
+    ], alignment="center") # ЗАКРЫЛИ КВАДРАТНУЮ СКОБКУ ТУТ! ✅
+ 
     # 2. Функция для входящего звонка (Flet-way, без Tkinter)
     def incoming_call_popup():
         page.dialog = ft.AlertDialog(
