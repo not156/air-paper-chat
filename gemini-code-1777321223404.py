@@ -122,6 +122,7 @@ def main(page: ft.Page):
         bgcolor="white",
         border_radius=10,
         padding=2
+        on_click=start_search,
     )
 ], alignment="center")
 
