@@ -175,6 +175,26 @@ def main(page: ft.Page):
         )
         page.dialog.open = True
         page.update()
+        # --- БЛОК СОЗДАНИЯ КНОПОК ---
+
+# 1. Сначала создаем функцию, которая сработает при нажатии
+def start_pomidor_call():
+    print("Звонок через Агурец-чат запущен! 🍅")
+    # Здесь пойдет связь с твоим кодом на GitHub
+
+# 2. А теперь сама кнопка (ставим её под остальными кнопками)
+pomidor_btn = tk.Button(
+    text="🍅 ПОЗВОНИТЬ", 
+    command=start_pomidor_call, 
+    bg="red",          # Красный как помидор!
+    fg="white",        # Белый текст, чтобы было видно
+    font=("Arial", 12, "bold") # Чтобы кнопка была заметной
+)
+
+# 3. Размещаем её на экране
+pomidor_btn.pack(pady=10) 
+
+# --- КОНЕЦ БЛОКА КНОПОК ---
 
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
