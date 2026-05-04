@@ -17,3 +17,14 @@ async function startAguretsCall() {
 // Кнопка вызова
 const callButton = document.querySelector('#call-btn');
 callButton.addEventListener('click', startAguretsCall);
+// Функция "Принять звонок" для нашего ровера
+function acceptIncomingCall() {
+    console.log("Соединение установлено через войс ровер... 🚀");
+    
+    // Запускаем проверку безопасности, которую мы писали
+    if (checkConnectionSecurity()) {
+        startAguretsCall(); // Включаем микрофон
+    } else {
+        alert("ОШИБКА: Обнаружена активность RAT! Соединение разорвано. 🛡️");
+    }
+}
