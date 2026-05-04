@@ -24,7 +24,23 @@ def main(page: ft.Page):
     page.bgcolor = "#FDFCF0"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+# 1. Создаем окно поиска (затемнение)
+search_dialog = ft.AlertDialog(
+    modal=True, # Нельзя закрыть просто так
+    title=ft.Text("Поиск агурца... 🥒", text_align="center"),
+    content=ft.Column([
+        ft.ProgressRing(), # Крутилка как на серьезных сайтах
+        ft.Text("Ищем безопасное соединение 111", size=12)
+    ], tight=True, horizontal_alignment="center"),
+)
 
+# 2. Функция для кнопки (запуск поиска)
+def start_search(e):
+    page.dialog = search_dialog
+    search_dialog.open = True
+    page.update()
+    print("Запущен поиск агурца! Ждем БУМ-БУМ... 🔊")
+    # Тут сработает твой код на JavaScript с GitHub
 
     # Наша временная база данных (Логин: Пароль)
     users_db = {"admin": "1234"} 
@@ -41,7 +57,7 @@ def main(page: ft.Page):
                 page.snack_bar = ft.SnackBar(ft.Text("Регистрация АГА! ✅"))
             page.snack_bar.open = True
             page.update()
-
+            
     def login_user(e):
         current_users = get_all_users()
         # Проверяем пароль прямо из файла
@@ -229,22 +245,5 @@ pomidor_btn.pack(pady=10)
     else:
         print("Звонок отклонен ❌")
         # Закрываем соединени
-# 1. Создаем окно поиска (затемнение)
-search_dialog = ft.AlertDialog(
-    modal=True, # Нельзя закрыть просто так
-    title=ft.Text("Поиск агурца... 🥒", text_align="center"),
-    content=ft.Column([
-        ft.ProgressRing(), # Крутилка как на серьезных сайтах
-        ft.Text("Ищем безопасное соединение 111", size=12)
-    ], tight=True, horizontal_alignment="center"),
-)
-
-# 2. Функция для кнопки (запуск поиска)
- def start_search(e):
-    page.dialog = search_dialog
-    search_dialog.open = True
-    page.update()
-    print("Запущен поиск агурца! Ждем БУМ-БУМ... 🔊")
-    # Тут сработает твой код на JavaScript с GitHub
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
