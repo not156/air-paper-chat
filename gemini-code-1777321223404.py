@@ -1,7 +1,7 @@
 import flet as ft
 import os 
 DB_FILE = "users_db.txt"
-
+from tkinter import messagebox
 
 def get_all_users():
     users = {}
@@ -196,5 +196,17 @@ pomidor_btn.pack(pady=10)
 
 # --- КОНЕЦ БЛОКА КНОПОК ---
 
+
+# Функция для входящего звонка
+ def incoming_call_popup():
+    # Создаем окно с выбором
+    answer = messagebox.askyesno("Входящий звонок", "Вам звонит 111\n\nОтветить ✅?")
+    
+    if answer:
+        print("Звонок принят! 📞✅")
+        # Здесь запускается аудио, которое мы прописали на GitHub
+    else:
+        print("Звонок отклонен ❌")
+        # Закрываем соединение
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
