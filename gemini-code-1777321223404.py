@@ -225,7 +225,7 @@ def start_search(e):
         print("Буууп-буууп запущен! 🔊")
 
     # Создаем большую, красивую кнопку
-    main_call_btn = ft.ElevatedButton(
+      main_call_btn = ft.ElevatedButton(
         content=ft.Row(
             [ft.Icon(ft.icons.CALL, color="white"), ft.Text("УСТАНОВИТЬ СВЯЗЬ 111")],
             alignment="center",
