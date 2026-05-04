@@ -227,6 +227,23 @@ pomidor_btn.pack(pady=10)
         # Здесь запускается аудио, которое мы прописали на GitHub
     else:
         print("Звонок отклонен ❌")
-        # Закрываем соединение
+        # Закрываем соединени
+# 1. Создаем окно поиска (затемнение)
+search_dialog = ft.AlertDialog(
+    modal=True, # Нельзя закрыть просто так
+    title=ft.Text("Поиск агурца... 🥒", text_align="center"),
+    content=ft.Column([
+        ft.ProgressRing(), # Крутилка как на серьезных сайтах
+        ft.Text("Ищем безопасное соединение 111", size=12)
+    ], tight=True, horizontal_alignment="center"),
+)
+
+# 2. Функция для кнопки (запуск поиска)
+ def start_search(e):
+    page.dialog = search_dialog
+    search_dialog.open = True
+    page.update()
+    print("Запущен поиск агурца! Ждем БУМ-БУМ... 🔊")
+    # Тут сработает твой код на JavaScript с GitHub
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
