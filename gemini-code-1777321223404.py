@@ -2,7 +2,7 @@ import flet as ft
 import os 
 DB_FILE = "users_db.txt"
  
-
+#куку где изменен 
 def get_all_users():
     users = {}
     if os.path.exists(DB_FILE):
