@@ -98,12 +98,20 @@ def main(page: ft.Page):
         page.update()
 
     # Ряд смайликов (тот самый выбор агурца)
-    emoji_row = ft.Row([
-        ft.TextButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
-        ft.TextButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
-        ft.TextButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
-        ft.TextButton(content=ft.Text("✅", size=25), on_click=add_emoji),
-    ], alignment="center")
+    # Обновляем ряд смайликов в main.py
+ emoji_row = ft.Row([
+    ft.TextButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
+    ft.TextButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
+    ft.TextButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
+    ft.TextButton(content=ft.Text("✅", size=25), on_click=add_emoji),
+    # ВОТ ОНА — ГЛАВНАЯ КНОПКА ЗВОНКА 🍅
+    ft.IconButton(
+        icon=ft.icons.PHONE_FORWARDED, 
+        icon_color="red", 
+        icon_size=30,
+        on_click=lambda _: incoming_call_popup() # Запуск нашего окна и буууп-звука
+    ),
+], alignment="center")
 
     # Строка отправки
     message_row = ft.Row([
