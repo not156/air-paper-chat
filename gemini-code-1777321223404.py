@@ -233,21 +233,31 @@ pomidor_btn = tk.Button(
 )
 
 # 3. Размещаем её на экране
-pomidor_btn.pack(pady=10) 
+pomidor_btn.pack(pady=10)
+# --- ОТДЕЛЬНАЯ КНОПКА СВЯЗИ (Линия 242 и далее) ---
+    def start_call_logic(e):
+        page.dialog = search_dialog
+        search_dialog.open = True
+        page.update()
+        print("Буууп-буууп запущен! 🔊")
 
-# --- КОНЕЦ БЛОКА КНОПОК ---
+    # Создаем большую, красивую кнопку
+    main_call_btn = ft.ElevatedButton(
+        content=ft.Row(
+            [ft.Icon(ft.icons.CALL, color="white"), ft.Text("УСТАНОВИТЬ СВЯЗЬ 111")],
+            alignment="center",
+        ),
+        bgcolor="red",
+        color="white",
+        on_click=start_call_logic,
+        width=300,
+        height=50,
+    )
 
+    # Добавляем её в самый низ страницы
+    page.add(ft.Divider(), main_call_btn) 
+    page.update()
+    # --- КОНЕЦ БЛОКА --
 
-# Функция для входящего звонка
- def incoming_call_popup():
-    # Создаем окно с выбором
-    answer = messagebox.askyesno("Входящий звонок", "Вам звонит 111\n\nОтветить ✅?")
-    
-    if answer:
-        print("Звонок принят! 📞✅")
-        # Здесь запускается аудио, которое мы прописали на GitHub
-    else:
-        print("Звонок отклонен ❌")
-        # Закрываем соединени
 # Запускаем!
 ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
