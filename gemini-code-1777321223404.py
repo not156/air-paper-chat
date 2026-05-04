@@ -1,7 +1,7 @@
 import flet as ft
 import os 
 DB_FILE = "users_db.txt"
-from tkinter import messagebox
+ import messagebox
 
 def get_all_users():
     users = {}
@@ -114,39 +114,45 @@ def start_search(e):
         page.update()
 
     # Ряд смайликов (тот самый выбор агурца)
-# Ряд смайликов (добавляем кнопку связи рядом!)
- emoji_row = ft.Row([
-    ft.TextButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
-    ft.TextButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
-    ft.TextButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
-    ft.TextButton(content=ft.Text("✅", size=25), on_click=add_emoji),
-    # Тот самый "Помидорный" вызов рядом с ✅
-        ft.IconButton(
-            icon=ft.icons.TELEGRAM_ROUNDED, # Похоже на запуск ракеты/звонка
-            icon_color="orange",            # Сделаем ярким, чтобы не путать
-            icon_size=30,
-            on_click=lambda _: incoming_call_popup() # Наш бууупбуууп и окно "111"
-        ),
-    # ТА САМАЯ КНОПКА СВЯЗИ 🍅
-    ft.Container(
-        content=ft.IconButton(
-            icon=ft.icons.CALL,
-            icon_color="red",
-            icon_size=30,
-            on_click=lambda _: incoming_call_popup() # Наш бууупбуууп и окно
-        ),
-        bgcolor="white",
-        border_radius=10,
-        padding=2
-        on_click=start_search,
-    )
-], alignment="center")
+emoji_row = ft.Row([
+        ft.TextButton(content=ft.Text("🥒", size=25), on_click=add_emoji),
+        ft.TextButton(content=ft.Text("🤘", size=25), on_click=add_emoji),
+        ft.TextButton(content=ft.Text("🔥", size=25), on_click=add_emoji),
+        ft.TextButton(content=ft.Text("✅", size=25), on_click=add_emoji),
+        
+        # ТА САМАЯ КНОПКА СВЯЗИ 🍅 (с затемнением)
+        ft.Container(
+            content=ft.IconButton(
+                icon=ft.icons.CALL,
+                icon_color="red",
+                icon_size=30,
+            ),
+            bgcolor="white",
+            border_radius=10,
+            padding=2,
+            on_click=start_search, # Теперь кнопка запускает поиск агурца!
+        )
+    ], alignment="center")
+
+    # 2. Функция для входящего звонка (Flet-way, без Tkinter)
+    def incoming_call_popup():
+        page.dialog = ft.AlertDialog(
+            title=ft.Text("Входящий звонок"),
+            content=ft.Text("Вам звонит 111\nОтветить ✅?"),
+            actions=[
+                ft.TextButton("✅ Ответить", on_click=lambda _: print("Принято!")),
+                ft.TextButton("❌ Отклонить", on_click=close_dialog),
+            ],
+        )
+        page.dialog.open = True
+        page.update()
 
     # Строка отправки
     message_row = ft.Row([
         new_msg_field, 
         ft.IconButton(icon="send", on_click=lambda _: print("Отправлено!"))
     ])
+
 # --- 1. ФУНКЦИЯ ОТПРАВКИ (чтобы писать в файл) ---
     def send_message(e):
         if new_msg_field.value:
