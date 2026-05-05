@@ -218,7 +218,7 @@ def start_search(e):
         page.update()
         # --- БЛОК СОЗДАНИЯ КНОПОК ---
 # --- ОТДЕЛЬНАЯ КНОПКА СВЯЗИ (Линия 242 и далее) ---
-def start_call_logic(e):
+def def start_call_logic(e):
         page.dialog = search_dialog
         search_dialog.open = True
         page.update()
