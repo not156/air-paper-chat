@@ -224,8 +224,8 @@ def start_call_logic(e):
         page.update()
         print("Буууп-буууп запущен! 🔊")
 
-    # Создаем кнопку (ровно 4 пробела слева)
-     main_call_btn = ft.ElevatedButton(
+    # Создаем кнопку
+    main_call_btn = ft.ElevatedButton(
         content=ft.Row(
             [ft.Icon(ft.icons.CALL, color="white"), ft.Text("ПОИСК АГУРЦА")],
             alignment="center",
@@ -237,9 +237,8 @@ def start_call_logic(e):
         height=50,
     )
 
-    # Добавляем на страницу (ровно 4 пробела слева)
+    # Добавляем на страницу
     page.add(ft.Divider(), main_call_btn)
     page.update()
-
-# Запуск (строго БЕЗ пробелов слева)
+#  (строго БЕЗ пробелов слева)
 ft.app(target=main, view=ft.AppView.WEB_BROWSER)
