@@ -225,7 +225,7 @@ def start_call_logic(e):
         print("Буууп-буууп запущен! 🔊")
 
     # Создаем кнопку (ровно 4 пробела слева)
-    main_call_btn = ft.ElevatedButton(
+     main_call_btn = ft.ElevatedButton(
         content=ft.Row(
             [ft.Icon(ft.icons.CALL, color="white"), ft.Text("ПОИСК АГУРЦА")],
             alignment="center",
