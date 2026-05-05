@@ -218,16 +218,16 @@ def start_search(e):
         page.update()
         # --- БЛОК СОЗДАНИЯ КНОПОК ---
 # --- ОТДЕЛЬНАЯ КНОПКА СВЯЗИ (Линия 242 и далее) ---
-    def start_call_logic(e):
+   def start_call_logic(e):
         page.dialog = search_dialog
         search_dialog.open = True
         page.update()
         print("Буууп-буууп запущен! 🔊")
 
     # Создаем большую, красивую кнопку
-     main_call_btn = ft.ElevatedButton(
+    main_call_btn = ft.ElevatedButton(
         content=ft.Row(
-            [ft.Icon(ft.icons.CALL, color="white"), ft.Text("УСТАНОВИТЬ СВЯЗЬ 111")],
+            [ft.Icon(ft.icons.CALL, color="white"), ft.Text("ПОИСК АГУРЦА")],
             alignment="center",
         ),
         bgcolor="red",
@@ -238,10 +238,10 @@ def start_search(e):
     )
 
     # Добавляем её в самый низ страницы
-
-    page.add(ft.Divider(), main_call_btn) 
+    page.add(ft.Divider(), main_call_btn)
     page.update()
-    # --- КОНЕЦ БЛОКА --
 
-# Запускаем!
-ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=9001)
+# --- КОНЕЦ БЛОКА main ---
+
+# Запускаем приложение! (ВАЖНО: без пробелов в начале строки)
+ft.app(target=main, view=ft.AppView.WEB_BROWSER)
