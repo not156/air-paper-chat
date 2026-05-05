@@ -238,7 +238,8 @@ def start_search(e):
     )
 
     # Добавляем её в самый низ страницы
-),page.add(ft.Divider(), main_call_btn) 
+
+    page.add(ft.Divider(), main_call_btn) 
     page.update()
     # --- КОНЕЦ БЛОКА --
 
